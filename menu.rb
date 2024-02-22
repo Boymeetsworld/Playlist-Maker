@@ -35,42 +35,52 @@ end
 def create_playlist
     print "Enter playlist name: "
     playlist_name = gets.chomp
-    playlist= Playlist.new(playlist_name)
     @playlists << Playlist.new(playlist_name)
     puts "Playlist '#{playlist_name}' was created!"
 end
 
-    def display_playlist_menu(playlist)
-      puts "\n#{playlist.name} Menu:"
-      puts "1. Add Song"
-      puts "2. Remove Song"
-      puts "3. Back to Main Menu"
-      print "Enter your choice: "
+def add_song_to_playlist 
+  if @playlists.empty?
+    puts "No playlist are available, think you could make one for me?"
+    return
+  end
+
+display_playlists
+print "enter playlist number to add song to: "
+playlist_index = gets.chomp.to_i - 1
+playlist = @playlists[playlist_index]
+if playlist.nil?
+  puts "invalid playlist number"
+  return
+  end
+
+  print "Enter song name: "
+  song_name = gets.chomp
+  playlist.add_song(song_name)
+  puts "song: #{song_name} added to playlist: #{playlist_name}!"
+end
+
+def remove_song_from_playlist
+    if @playlists.empty? 
+        puts "No playlist are available, think you could make one for me?"
+        return
     end
 
-
-
-
-# def add_songs
+    display_playlists
+    print "enter playlist number to remove song from: "
+    song_index = gets.chomp.to_i
+    if song_index >= 0 && song_index < playlist.songs.length
+        removed_song = playlist.songs.delete_at(song_index)
+        puts "Song: #{removed_song} removed from playlist: #{playlist.name}."
+    else
+    puts "invalid playlist number"
     
-#     if @playlists.empty?
-#     puts "No playlist is available, please create a playlist first"
-#     return
-#     end
+  end
 
-#     puts "Select Playlist"
-#     @playlist.each_with_index {|playlist, index| puts "#{index + 1}. #{playlist_name}"}
-#     print "Enter playlist number: "
-#     playlist_index = gets.chomp.to_i - 1
-
-#     print "Enter song title here: "
-#     song = gets.chomp
-#     print "Enter album title here: "
-#     album = gets.chomp
-#     print "Enter artist here: "
-#     artist = gets.chomp
-
-#     song = Song.new(song,album,artist)
-#     @playlist[playlist_index].add_songs(song)
-
-# end
+  def display_playlists
+    puts "Available Playlists:"
+    @playlists.each_with_index do |playlist, index|
+        puts "#{index + 1}. #{playlist.name}"
+    end
+end
+end
