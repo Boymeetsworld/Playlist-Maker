@@ -1,13 +1,16 @@
-class Playlist 
-    attr_accessor :artist, :album, :song
-
-def initialize(artist, album, song)
-    @artist = artist
-    @album = album
-    @song = song
-end
-
-def to_s 
- "#{@song} by #{@artist} off of #{@album}"
-end
-end
+class Playlist
+    attr_accessor :name, :songs
+  
+    def initialize(name)
+      @name = name
+      @songs = []
+    end
+  
+    def add_song(song)
+      @songs << song
+    end
+  
+    def remove_song(song)
+      @songs.delete(song)
+    end
+  end
