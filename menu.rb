@@ -151,7 +151,40 @@ class Menu
       end
     end
   
-    def display_edit_menu(playlist)
+
+    def display_playlist_songs
+      if @playlists.empty?
+        puts "No playlists available."
+        return
+      end
+  
+      display_playlists
+      print "Enter playlist number to display songs: "
+      playlist_index = gets.chomp.to_i - 1
+      playlist = @playlists[playlist_index]
+      if playlist.nil?
+        puts "Invalid playlist number."
+        return
+      end
+      if playlist.songs.empty?
+        puts "No songs in playlist '#{playlist.name}'."
+        return
+      end
+      puts "Songs in playlist '#{playlist.name}':"
+      playlist.songs.each do |song|
+        puts song
+      end
+    end
+  
+
+    def display_playlists
+      puts "Available Playlists:"
+      @playlists.each_with_index do |playlist, index|
+        puts "#{index + 1}. #{playlist.name}"
+      end
+    end
+  
+        def display_edit_menu(playlist)
       puts "\nEdit #{playlist.name}:"
       puts "1. Change Playlist Name"
       puts "2. Back to Main Menu"
