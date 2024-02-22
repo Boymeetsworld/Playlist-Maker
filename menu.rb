@@ -117,7 +117,7 @@ class Menu
     end
   
     def display_playlist_menu(playlist)
-      puts "{playlist.name} Menu:"
+      puts "\n#{playlist.name} Menu:"
       puts "1. Add Song"
       puts "2. Remove Song"
       puts "3. Back to Main Menu"
